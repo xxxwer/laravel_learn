@@ -5,7 +5,7 @@ function exceptionOperate(Exception $e)
     $str = $e->getMessage();
     $strArray = explode(' ', $str);
     if (isTimeStamp(end($strArray))) {
-        return view('errors/show_error', array('title' => 'error', 'content' => $str));    
+        return view('errors/show_error', array('title' => 'error', 'content' => $str));
     } else {
         throw $e;
     }
@@ -17,4 +17,7 @@ function isTimeStamp($timeStamp)
     return ctype_digit($timeStamp) && $timeStamp <= 2147483647;
 }
 
-
+function assets($path)
+{
+    return URL::asset($path);
+}

@@ -32,6 +32,7 @@
                 <Item>*/._.*</Item>
                 <Item>/vendor/</Item>
                 <Item>/storage/</Item>
+                <Item>.git</Item>
             </Exclude>
             <TimeSpan Type="None">0</TimeSpan>
             <SizeMin Unit="None">0</SizeMin>

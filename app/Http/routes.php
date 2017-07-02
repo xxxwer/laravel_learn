@@ -26,8 +26,29 @@
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
-    Route::get('/', ['uses' => 'Admin\IndexController@showKeywordList'] );
+Route::group([
+    'middleware' => ['web'],
+    'namespace' => 'Admin',
+    'as' => 'Admin::'
+], function () {
+    Route::any('/', [
+        'as' => 'login',
+        'uses' => 'LoginController@login'
+    ]);
+
+    Route::any('/doLogin', [
+        'as' => 'doLogin',
+        'uses' => 'LoginController@doLogin'
+    ]);
+
+    Route::get('/logout', [
+        'as' => 'logout',
+        'uses' => 'LoginController@logout'
+    ]);
+});
+
+Route::group(['middleware' => ['web', 'admin.auth'], 'as' => 'Admin::'], function () {
+    Route::get('/f_index', ['as' => 'dashboardIndex', 'uses' => 'Admin\IndexController@showKeywordList'] );
     Route::post('doAddKeyword', ['uses' => 'Admin\IndexController@doAddKeyword'] );
     Route::get('index', ['uses' => 'Admin\IndexController@showKeywordList'] );
     Route::get('addKeyword', ['uses' => 'Admin\IndexController@addKeyword'] );
